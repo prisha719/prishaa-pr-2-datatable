@@ -13,7 +13,6 @@ const Page = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
 
-  // ================= CHANGE =================
   const handleChange = (e) => {
     let { name, value, checked } = e.target;
 
@@ -30,7 +29,6 @@ const Page = () => {
     setErrors({ ...errors, [name]: "" });
   };
 
-  // ================= VALIDATION =================
   const validate = () => {
     let err = {};
     if (!user.name) err.name = "Name required";
@@ -45,7 +43,6 @@ const Page = () => {
     return Object.keys(err).length === 0;
   };
 
-  // ================= SUBMIT =================
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validate()) return;
@@ -69,14 +66,12 @@ const Page = () => {
     setErrors({});
   };
 
-  // ================= DELETE =================
   const handleDelete = (id) => {
     const updated = list.filter((item) => item.id !== id);
     setList(updated);
     localStorage.setItem("users", JSON.stringify(updated));
   };
 
-  // ================= EDIT =================
   const handleEdit = (id) => {
     const selected = list.find((item) => item.id === id);
     setUser(selected);
@@ -84,36 +79,31 @@ const Page = () => {
     setHobby(selected.hobby || []);
   };
 
-  // ================= LOAD =================
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("users")) || [];
     setList(data);
   }, []);
 
-  // ================= FILTER =================
   const filtered = list.filter((item) =>
     (item.name || "").toLowerCase().includes(search.toLowerCase()) ||
     (item.city || "").toLowerCase().includes(search.toLowerCase()) ||
     (item.gender || "").toLowerCase().includes(search.toLowerCase())
   );
 
-  // ================= PAGINATION =================
-  const totalPages = Math.max(4, Math.ceil(filtered.length / itemsPerPage)); // 👈 FIX
+  const totalPages = Math.max(4, Math.ceil(filtered.length / itemsPerPage));
 
   const start = (currentPage - 1) * itemsPerPage;
   const currentData = filtered.slice(start, start + itemsPerPage);
 
-  // ================= STATS =================
   const maleCount = list.filter((u) => u.gender === "male").length;
   const femaleCount = list.filter((u) => u.gender === "female").length;
 
   return (
     <div style={{ background: "#f5f7fb", minHeight: "100vh" }}>
-      <div className="container py-5"> {/* 👈 Niche shift */}
+      <div className="container py-5">
 
         <div className="row">
 
-          {/* LEFT FORM */}
           <div className="col-md-4">
             <div className="bg-white p-4 rounded shadow">
               <h4>Add User</h4>
@@ -158,10 +148,8 @@ const Page = () => {
             </div>
           </div>
 
-          {/* RIGHT SIDE */}
           <div className="col-md-8">
 
-            {/* STATS */}
             <div className="row mb-3">
               <div className="col-md-4">
                 <div className="p-3 text-white rounded text-center" style={{ background: "#4fc3f7" }}>
@@ -180,14 +168,12 @@ const Page = () => {
               </div>
             </div>
 
-            {/* SEARCH */}
             <input
               className="form-control mb-3"
               placeholder="Search..."
               onChange={(e) => setSearch(e.target.value)}
             />
 
-            {/* TABLE */}
             <div className="p-2 rounded shadow" style={{ background: "#e3f2fd" }}>
               <table className="table text-center">
                 <thead style={{ background: "#4fc3f7", color: "white" }}>
@@ -229,7 +215,6 @@ const Page = () => {
               </table>
             </div>
 
-            {/* PAGINATION */}
             <div className="d-flex justify-content-end mt-3 gap-2">
               <button className="btn btn-secondary"
                 onClick={() => setCurrentPage(currentPage - 1)}
