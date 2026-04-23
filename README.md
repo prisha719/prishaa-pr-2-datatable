@@ -1,3 +1,2 @@
-
-![alt text](assets/img1.png)
-![alt text](assets/img2.png)
+(assets/img1.png)
+(assets/img2.png)
